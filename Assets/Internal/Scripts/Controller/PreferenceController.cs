@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class PreferenceController : MonoBehaviour
     public Transform level_ui_content;
     public Transform box_ui_content;
     public Button home_btn;
+    public TextMeshProUGUI time_show_txt;
+    public Button refresh_btn;
 
     [Space(10)]
     [Header("Local object")]
@@ -40,10 +43,18 @@ public class PreferenceController : MonoBehaviour
         {
             ReturnHome();
         });
+        refresh_btn.onClick.AddListener(() =>
+        {
+            RefreshGame();
+        });
     }
 
     public void ReturnHome()
     {
-        level_ui_container.gameObject.SetActive(true);
+        level_ui_container.SetActive(true);
+    }
+    public void RefreshGame()
+    {
+        GameController.instance.ReloadGame();
     }
 }

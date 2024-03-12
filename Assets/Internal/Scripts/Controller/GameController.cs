@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,10 @@ public class GameController : MonoBehaviour
     Present currentPresent = null;
     Cake currentCake = null;
 
+    float currentPlayTime = 0f;
+
+    private TextMeshProUGUI show_time_txt;
+
 
     private void Awake()
     {
@@ -40,12 +45,26 @@ public class GameController : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        show_time_txt = PreferenceController.instance.time_show_txt;
     }
     public void InitGame()
     {
         SpawnLevel();
     }
+    private void Update()
+    {
+        show_time_txt.text = FormatTime(currentPlayTime);
+        if (currentPlayTime > 0)
+        {
+            currentPlayTime -= Time.deltaTime;
+        }
 
+        if (currentPlayTime == 0)
+        {
+            EndGame();
+        }
+    }
     public void SpawnLevel()
     {
         PreferenceController.instance.level_ui_container.SetActive(true);
@@ -153,7 +172,30 @@ public class GameController : MonoBehaviour
         currentLevelMatrix = levelMatrix;
         previousLevel = level;
 
+        currentPlayTime = level.playTime;
+
         PreferenceController.instance.level_ui_container.SetActive(false);
+    }
+
+    string FormatTime(float timeInSeconds)
+    {
+        int minutes = Mathf.FloorToInt(timeInSeconds / 60f);
+        int seconds = Mathf.FloorToInt(timeInSeconds - minutes * 60f);
+
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void EndGame()
+    {
+
+    }
+    public void WinGame()
+    {
+
+    }
+    public void ReloadGame()
+    {
+        LevelSettingInit(previousLevel);
     }
 }
 [System.Serializable]

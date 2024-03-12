@@ -171,6 +171,8 @@ MonoBehaviour:
   level_ui_content: {fileID: 549497398}
   box_ui_content: {fileID: 1127794131}
   home_btn: {fileID: 142674461}
+  time_show_txt: {fileID: 1614911153}
+  refresh_btn: {fileID: 962893839}
   level: {fileID: -581903485857879486, guid: f35d1809a03cbdb41abd9eb530ab3c84, type: 3}
   box_item: {fileID: -4145821267064975854, guid: 2f706caeb0604134db21d449c1d73578, type: 3}
   present: {fileID: 4559979573022865600, guid: 5614e39afc0e08549979ad52fb15facc, type: 3}
@@ -1106,24 +1108,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - playTime: 10
-    column: 3
-    row: 3
-    presentPosition: 5
-    cakeInPosition: 3
-    blockPosition: 
-  - playTime: 10
-    column: 3
-    row: 3
+  - playTime: 300
+    column: 2
+    row: 2
     presentPosition: 3
-    cakeInPosition: 9
-    blockPosition: 010000000200000008000000
-  - playTime: 10
-    column: 4
-    row: 4
+    cakeInPosition: 1
+    blockPosition: 
+  - playTime: 300
+    column: 2
+    row: 2
+    presentPosition: 3
+    cakeInPosition: 1
+    blockPosition: 02000000
+  - playTime: 300
+    column: 3
+    row: 3
     presentPosition: 3
     cakeInPosition: 6
-    blockPosition: 010000000200000008000000
+    blockPosition: 
+  - playTime: 300
+    column: 3
+    row: 3
+    presentPosition: 3
+    cakeInPosition: 6
+    blockPosition: 01000000
 --- !u!1 &962893835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1143,7 @@ GameObject:
   - component: {fileID: 962893836}
   - component: {fileID: 962893838}
   - component: {fileID: 962893837}
+  - component: {fileID: 962893839}
   m_Layer: 5
   m_Name: retry_icon
   m_TagString: Untagged
@@ -1199,6 +1208,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962893835}
   m_CullTransparentMesh: 1
+--- !u!114 &962893839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962893835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 962893837}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1004923258
 PrefabInstance:
   m_ObjectHideFlags: 0
