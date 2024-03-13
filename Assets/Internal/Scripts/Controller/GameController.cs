@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour
 
         show_time_txt = PreferenceController.instance.time_show_txt;
 
+
         if (PlayerPrefs.HasKey("current_level"))
         {
             currentLevel = PlayerPrefs.GetInt("current_level");
@@ -71,14 +72,11 @@ public class GameController : MonoBehaviour
         else
         {
             currentLevel = 0;
+            PlayerPrefs.SetInt("0", 0);
             PlayerPrefs.SetInt("current_level", 0);
+            starHistory[0] = PlayerPrefs.GetInt("0");
         }
-
         InitGame();
-        if (!PlayerPrefs.HasKey("0"))
-        {
-            starHistory[0] = 0;
-        }
     }
     public void InitGame()
     {
@@ -200,7 +198,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (previousLevel != null)
+        if (currentLevelMatrix != null)
         {
             for (int i = 0; i < currentLevelMatrix.Count; i++)
             {
@@ -495,7 +493,7 @@ public class GameController : MonoBehaviour
             PlayerPrefs.SetInt(playLevel.ToString(), totalStar);
             starHistory[playLevel] = totalStar;
             currentLevel += 1;
-            PlayerPrefs.SetInt("current_level", playLevel);
+            PlayerPrefs.SetInt("current_level", currentLevel);
         }
         else
         {
@@ -505,6 +503,13 @@ public class GameController : MonoBehaviour
                 starHistory[playLevel] = totalStar;
                 PlayerPrefs.SetInt(playLevel.ToString(), totalStar);
             }
+        }
+    }
+    public void NextLevel()
+    {
+        if (currentLevel < levels.Count)
+        {
+            Play(currentLevel);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PreferenceController : MonoBehaviour
@@ -73,5 +74,11 @@ public class PreferenceController : MonoBehaviour
     {
         fail_ui.SetActive(false);
         win_ui.SetActive(false);
+        GameController.instance.NextLevel();
+    }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
     }
 }
