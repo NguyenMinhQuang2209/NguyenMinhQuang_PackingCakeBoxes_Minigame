@@ -497,6 +497,15 @@ public class GameController : MonoBehaviour
             currentLevel += 1;
             PlayerPrefs.SetInt("current_level", playLevel);
         }
+        else
+        {
+            int previousPoint = starHistory[playLevel];
+            if (previousPoint < totalStar)
+            {
+                starHistory[playLevel] = totalStar;
+                PlayerPrefs.SetInt(playLevel.ToString(), totalStar);
+            }
+        }
     }
 }
 [System.Serializable]
