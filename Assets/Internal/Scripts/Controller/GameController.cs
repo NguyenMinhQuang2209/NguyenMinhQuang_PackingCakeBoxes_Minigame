@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
     Present currentPresent = null;
     Cake currentCake = null;
 
+    int presentPosition = -1;
+    int cakePosition = -1;
     float currentPlayTime = 0f;
 
     private TextMeshProUGUI show_time_txt;
@@ -173,6 +175,8 @@ public class GameController : MonoBehaviour
         previousLevel = level;
 
         currentPlayTime = level.playTime;
+        presentPosition = level.presentPosition - 1;
+        cakePosition = level.cakeInPosition - 1;
 
         PreferenceController.instance.level_ui_container.SetActive(false);
     }
@@ -196,6 +200,209 @@ public class GameController : MonoBehaviour
     public void ReloadGame()
     {
         LevelSettingInit(previousLevel);
+    }
+
+    public bool IsPlaying()
+    {
+        return previousLevel != null;
+    }
+    public void CheckDirection(Direction direction)
+    {
+        if (!IsPlaying())
+        {
+            return;
+        }
+        bool stop = true;
+        switch (direction)
+        {
+            case Direction.Up:
+                do
+                {
+                    int nextPosition = presentPosition - previousLevel.column;
+                    if (nextPosition < 0 || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentPresent.transform.SetParent(boxItem.transform, false);
+                        presentPosition = nextPosition;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+
+                do
+                {
+                    int nextPosition = cakePosition - previousLevel.column;
+                    if (nextPosition < 0 || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentCake.transform.SetParent(boxItem.transform, false);
+                        cakePosition = nextPosition;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+                break;
+            case Direction.Down:
+                do
+                {
+                    int nextPosition = presentPosition + previousLevel.column;
+                    if (nextPosition > previousLevel.column * previousLevel.row || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentPresent.transform.SetParent(boxItem.transform, false);
+                        presentPosition = nextPosition;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+
+                do
+                {
+                    int nextPosition = cakePosition + previousLevel.column;
+                    if (nextPosition > previousLevel.column * previousLevel.row || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentCake.transform.SetParent(boxItem.transform, false);
+                        cakePosition = nextPosition;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+                break;
+            case Direction.Left:
+                do
+                {
+                    int nextPosition = presentPosition - 1;
+                    if ((presentPosition % previousLevel.column) == 0 || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentPresent.transform.SetParent(boxItem.transform, false);
+                        presentPosition = nextPosition;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+
+                do
+                {
+                    int nextPosition = cakePosition - 1;
+                    if ((cakePosition % previousLevel.column) == 0 || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentCake.transform.SetParent(boxItem.transform, false);
+                        cakePosition = nextPosition;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+                break;
+            case Direction.Right:
+                do
+                {
+                    int nextPosition = presentPosition + 1;
+                    if (((presentPosition + 1) % previousLevel.column) == 0 || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentPresent.transform.SetParent(boxItem.transform, false);
+                        presentPosition = nextPosition;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+
+                do
+                {
+                    int nextPosition = cakePosition + 1;
+                    if (((cakePosition + 1) % previousLevel.column) == 0 || previousLevel.blockPosition.Contains(nextPosition + 1))
+                    {
+                        break;
+                    }
+
+                    if (boxStore.ContainsKey(nextPosition))
+                    {
+                        BoxItem boxItem = boxStore[nextPosition];
+                        currentCake.transform.SetParent(boxItem.transform, false);
+                        cakePosition = nextPosition;
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (stop);
+                break;
+        }
+    }
+    public void WinLevel()
+    {
+        Debug.Log("Win Game");
+    }
+
+    public void ReturnHome()
+    {
+        PreferenceController.instance.level_ui_container.SetActive(true);
+        previousLevel = null;
     }
 }
 [System.Serializable]

@@ -51,7 +51,7 @@ public class PreferenceController : MonoBehaviour
 
     public void ReturnHome()
     {
-        level_ui_container.SetActive(true);
+        GameController.instance.ReturnHome();
     }
     public void RefreshGame()
     {
