@@ -16,6 +16,11 @@ public class PreferenceController : MonoBehaviour
     public TextMeshProUGUI time_show_txt;
     public Button refresh_btn;
 
+    public GameObject fail_ui;
+    public GameObject win_ui;
+
+    public List<Image> win_star;
+
     [Space(10)]
     [Header("Local object")]
     public LevelItem level;
@@ -47,14 +52,26 @@ public class PreferenceController : MonoBehaviour
         {
             RefreshGame();
         });
+
+        fail_ui.SetActive(false);
+        win_ui.SetActive(false);
     }
 
     public void ReturnHome()
     {
+        fail_ui.SetActive(false);
+        win_ui.SetActive(false);
         GameController.instance.ReturnHome();
     }
     public void RefreshGame()
     {
+        fail_ui.SetActive(false);
+        win_ui.SetActive(false);
         GameController.instance.ReloadGame();
+    }
+    public void NextLevel()
+    {
+        fail_ui.SetActive(false);
+        win_ui.SetActive(false);
     }
 }
