@@ -1984,8 +1984,15 @@ MonoBehaviour:
     row: 2
     presentPosition: 3
     cakeInPosition: 1
-    blockPosition: 01000000
+    blockPosition: 
     disableIframeAt: 02000000
+  - playTime: 300
+    column: 2
+    row: 2
+    presentPosition: 3
+    cakeInPosition: 1
+    blockPosition: 02000000
+    disableIframeAt: 
   - playTime: 300
     column: 2
     row: 2

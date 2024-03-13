@@ -45,8 +45,6 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
-        starHistory[0] = 0;
-        InitGame();
         Transform box_ui = PreferenceController.instance.box_ui_content;
         foreach (Transform child in box_ui)
         {
@@ -54,6 +52,33 @@ public class GameController : MonoBehaviour
         }
 
         show_time_txt = PreferenceController.instance.time_show_txt;
+
+        if (PlayerPrefs.HasKey("current_level"))
+        {
+            currentLevel = PlayerPrefs.GetInt("current_level");
+            for (int i = 0; i < currentLevel; i++)
+            {
+                if (PlayerPrefs.HasKey(i.ToString()))
+                {
+                    starHistory[i] = PlayerPrefs.GetInt(i.ToString());
+                }
+                else
+                {
+                    starHistory[i] = 0;
+                }
+            }
+        }
+        else
+        {
+            currentLevel = 0;
+            PlayerPrefs.SetInt("current_level", 0);
+        }
+
+        InitGame();
+        if (!PlayerPrefs.HasKey("0"))
+        {
+            starHistory[0] = 0;
+        }
     }
     public void InitGame()
     {
@@ -446,6 +471,8 @@ public class GameController : MonoBehaviour
 
         PreferenceController.instance.fail_ui.SetActive(false);
         PreferenceController.instance.win_ui.SetActive(true);
+
+        WinGameSetup(totalStar);
     }
     public void EndGame()
     {
@@ -457,8 +484,19 @@ public class GameController : MonoBehaviour
 
     public void ReturnHome()
     {
-        PreferenceController.instance.level_ui_container.SetActive(true);
+        InitGame();
         previousLevel = null;
+    }
+
+    public void WinGameSetup(int totalStar)
+    {
+        if (currentLevel == playLevel)
+        {
+            PlayerPrefs.SetInt(playLevel.ToString(), totalStar);
+            starHistory[playLevel] = totalStar;
+            currentLevel += 1;
+            PlayerPrefs.SetInt("current_level", playLevel);
+        }
     }
 }
 [System.Serializable]

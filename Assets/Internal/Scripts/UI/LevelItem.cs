@@ -52,11 +52,9 @@ public class LevelItem : MonoBehaviour
 
     public void PlayInLevel()
     {
-        GameController.instance.Play(position - 1);
-
-        /*if (!isLock)
+        if (!isLock)
         {
             GameController.instance.Play(position - 1);
-        }*/
+        }
     }
 }
