@@ -76,6 +76,12 @@ public class PreferenceController : MonoBehaviour
         win_ui.SetActive(false);
         GameController.instance.NextLevel();
     }
+    public void NextInsideLevel()
+    {
+        fail_ui.SetActive(false);
+        win_ui.SetActive(false);
+        GameController.instance.NextInsideLevel();
+    }
 
     public void BackToMain()
     {

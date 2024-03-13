@@ -53,7 +53,6 @@ public class GameController : MonoBehaviour
 
         show_time_txt = PreferenceController.instance.time_show_txt;
 
-
         if (PlayerPrefs.HasKey("current_level"))
         {
             currentLevel = PlayerPrefs.GetInt("current_level");
@@ -509,7 +508,14 @@ public class GameController : MonoBehaviour
     {
         if (currentLevel < levels.Count)
         {
-            Play(currentLevel);
+            Play(currentLevel + 1);
+        }
+    }
+    public void NextInsideLevel()
+    {
+        if (playLevel < levels.Count)
+        {
+            Play(playLevel + 1);
         }
     }
 }
